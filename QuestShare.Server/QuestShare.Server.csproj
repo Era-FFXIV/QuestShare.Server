@@ -36,13 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Condition=" '$(Configuration)' == 'Debug' " Include="..\QuestShare.Common\QuestShare.Common\QuestShare.Common.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="QuestShare.Common">
-      <HintPath>..\QuestShare.Common\QuestShare.Common\bin\Release\net9.0\QuestShare.Common.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\QuestShare.Common\QuestShare.Common\QuestShare.Common.csproj" />
   </ItemGroup>
 
 </Project>

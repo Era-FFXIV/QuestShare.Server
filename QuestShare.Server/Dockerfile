@@ -13,9 +13,12 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["QuestShare.Server/QuestShare.Server.csproj", "QuestShare.Server/"]
+COPY ["../QuestShare.Common/QuestShare.Common/QuestShare.Common.csproj", "QuestShare.Common/"]
+CMD find .
 RUN dotnet restore "./QuestShare.Server/QuestShare.Server.csproj"
 COPY . .
 WORKDIR "/src/QuestShare.Server"
+#RUN dotnet build "../QuestShare.Common/QuestShare.Common/QuestShare.Common.csproj" -c $BUILD_CONFIGURATION -o /app/build
 RUN dotnet build "./QuestShare.Server.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
