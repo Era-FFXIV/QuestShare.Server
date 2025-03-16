@@ -40,8 +40,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="QuestShare.Common" Condition=" '$(Configuration)' == 'Release' ">
-      <HintPath>..\QuestShare.Common\QuestShare.Common\bin\Release\net8.0\QuestShare.Common.dll</HintPath>
+    <Reference Include="QuestShare.Common">
+      <HintPath>..\QuestShare.Common\QuestShare.Common\bin\Release\net9.0\QuestShare.Common.dll</HintPath>
     </Reference>
   </ItemGroup>
 
