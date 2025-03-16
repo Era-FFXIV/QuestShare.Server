@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
@@ -36,7 +36,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\QuestShare.Common\QuestShare.Common\QuestShare.Common.csproj" />
+    <ProjectReference Condition=" '$(Configuration)' == 'Debug' " Include="..\QuestShare.Common\QuestShare.Common\QuestShare.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="QuestShare.Common" Condition=" '$(Configuration)' == 'Release' ">
+      <HintPath>..\QuestShare.Common\QuestShare.Common\bin\Release\net8.0\QuestShare.Common.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
