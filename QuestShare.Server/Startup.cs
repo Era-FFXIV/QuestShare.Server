@@ -13,7 +13,9 @@ namespace QuestShare.Server
         {
             services.AddSignalR(options =>
             {
+#if DEBUG
                 options.EnableDetailedErrors = true;
+#endif
             }).AddJsonProtocol(options =>
             {
                 options.PayloadSerializerOptions.PropertyNamingPolicy = null;
@@ -23,7 +25,9 @@ namespace QuestShare.Server
         {
             app.UseRouting();
             app.UseWebSockets();
+#if DEBUG
             app.UseDeveloperExceptionPage();
+#endif
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHub<ShareHub>("/Hub", options =>
