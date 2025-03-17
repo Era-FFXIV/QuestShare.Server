@@ -19,4 +19,4 @@ WORKDIR /src
 EXPOSE 8080
 EXPOSE 8081
 COPY --from=publish /src/publish .
-ENTRYPOINT ["dotnet", "QuestShare.Server.dll"]
+ENTRYPOINT ["dotnet", "/src/QuestShare.Server.dll"]
