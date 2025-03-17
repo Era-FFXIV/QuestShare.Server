@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.AspNetCore.SignalR;
+using QuestShare.Common;
 using QuestShare.Server.Hubs;
 using QuestShare.Server.Managers;
+using QuestShare.Server.Models;
 
 namespace QuestShare.Server
 {
@@ -27,6 +29,33 @@ namespace QuestShare.Server
                 endpoints.MapHub<ShareHub>("/Hub", options =>
                 {
                     options.Transports = HttpTransportType.WebSockets | HttpTransportType.ServerSentEvents | HttpTransportType.LongPolling;
+                });
+
+                endpoints.MapGet("/", async context =>
+                {
+                    await context.Response.WriteAsync("QuestShare Server");
+                });
+
+                endpoints.MapGet("/version", async context =>
+                {
+                    await context.Response.WriteAsync(Constants.Version);
+                });
+
+                endpoints.MapGet("/status", async context =>
+                {
+                    // simulate database query
+                    try
+                    {
+                        var db = new QuestShareContext();
+                        var count = db.Clients.Count();
+                        await context.Response.WriteAsync($"OK");
+                    }
+                    catch (Exception e)
+                    {
+                        context.Response.StatusCode = 500;
+                        await context.Response.WriteAsync($"ERROR");
+                    }
+
                 });
             });
         }
