@@ -1,5 +1,6 @@
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
+USER $APP_UID
 WORKDIR /src
 COPY ["QuestShare.Server/QuestShare.Server/QuestShare.Server.csproj", "QuestShare.Server/"]
 RUN mkdir QuestShare.Common
@@ -7,17 +8,18 @@ COPY ["QuestShare.Server/QuestShare.Common/QuestShare.Common/QuestShare.Common.c
 RUN dotnet restore "./QuestShare.Server/QuestShare.Server.csproj"
 COPY . .
 WORKDIR "/src/QuestShare.Server"
-RUN dotnet build "./QuestShare.Server.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./QuestShare.Server.csproj" -c $BUILD_CONFIGURATION -o /src/build
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./QuestShare.Server/QuestShare.Server.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./QuestShare.Server/QuestShare.Server.csproj" -c $BUILD_CONFIGURATION -o /src/publish /p:UseAppHost=false
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS final
+USER $APP_UID
 WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
-COPY --from=publish /app/publish .
+COPY --from=publish /src/publish .
 ENTRYPOINT ["dotnet", "QuestShare.Server.dll"]
