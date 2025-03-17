@@ -1,9 +1,11 @@
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
-USER $APP_UID
+USER root
 WORKDIR /src
-COPY ["QuestShare.Server/QuestShare.Server/QuestShare.Server.csproj", "QuestShare.Server/"]
 RUN mkdir QuestShare.Common
+RUN chown -R $APP_UID:$APP_GID /src
+USER $APP_UID
+COPY ["QuestShare.Server/QuestShare.Server/QuestShare.Server.csproj", "QuestShare.Server/"]
 COPY ["QuestShare.Server/QuestShare.Common/QuestShare.Common/QuestShare.Common.csproj", "QuestShare.Common/QuestShare.Common/"]
 RUN dotnet restore "./QuestShare.Server/QuestShare.Server.csproj"
 COPY . .
