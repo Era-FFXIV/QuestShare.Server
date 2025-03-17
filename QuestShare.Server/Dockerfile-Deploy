@@ -6,7 +6,7 @@ COPY ["QuestShare.Server/QuestShare.Common/QuestShare.Common/QuestShare.Common.c
 RUN dotnet restore "./QuestShare.Server/QuestShare.Server.csproj"
 COPY . .
 WORKDIR "/src/QuestShare.Server"
-RUN dotnet build "./QuestShare.Server.csproj" -c $BUILD_CONFIGURATION -o /src/build
+RUN dotnet build "./QuestShare.Server.csproj" -c $BUILD_CONFIGURATION -o /src/build /p:UseAppHost=false
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
