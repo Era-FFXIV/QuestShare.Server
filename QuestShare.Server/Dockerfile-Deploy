@@ -3,7 +3,7 @@ ARG BUILD_CONFIGURATION=Release
 USER root
 WORKDIR /src
 RUN mkdir QuestShare.Common
-RUN chown -R $APP_UID:$APP_GID /src
+RUN chown -R $APP_UID /src
 USER $APP_UID
 COPY ["QuestShare.Server/QuestShare.Server/QuestShare.Server.csproj", "QuestShare.Server/"]
 COPY ["QuestShare.Server/QuestShare.Common/QuestShare.Common/QuestShare.Common.csproj", "QuestShare.Common/QuestShare.Common/"]
