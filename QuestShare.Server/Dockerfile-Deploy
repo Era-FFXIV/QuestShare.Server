@@ -13,7 +13,7 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["QuestShare.Server/QuestShare.Server/QuestShare.Server.csproj", "QuestShare.Server/"]
-MKDIR QuestShare.Common/
+RUN mkdir QuestShare.Common
 COPY ["QuestShare.Server/QuestShare.Common/QuestShare.Common/QuestShare.Common.csproj", "QuestShare.Common/QuestShare.Common/"]
 RUN dotnet restore "./QuestShare.Server/QuestShare.Server.csproj"
 COPY . .
