@@ -46,7 +46,7 @@ namespace QuestShare.Server.Hubs
             if (members.Count > 0)
             {
                 // broadcast to party
-                await Clients.GroupExcept(session.SessionId.ToString(), Context.ConnectionId).SendAsync(nameof(Cancel.CancelBroadcast), new Cancel.CancelBroadcast
+                await Clients.GroupExcept(session.ShareCode.ToString(), Context.ConnectionId).SendAsync(nameof(Cancel.CancelBroadcast), new Cancel.CancelBroadcast
                 {
                     ShareCode = request.ShareCode
                 });
