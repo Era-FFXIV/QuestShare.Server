@@ -42,14 +42,14 @@ namespace QuestShare.Server.Hubs
                 return;
             }
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, session!.ShareCode.ToString());
-            if (session.PartyMembers.Count > 0)
+            var members = await ClientManager.GetClientsInSession(session);
+            if (members.Count > 0)
             {
                 // broadcast to party
                 await Clients.GroupExcept(session.SessionId.ToString(), Context.ConnectionId).SendAsync(nameof(Cancel.CancelBroadcast), new Cancel.CancelBroadcast
                 {
                     ShareCode = request.ShareCode
                 });
-                var members = await ClientManager.GetClientsInSession(session);
                 foreach (var member in members)
                 {
                     await Groups.RemoveFromGroupAsync(member.Client.ConnectionId, session.ShareCode.ToString());
