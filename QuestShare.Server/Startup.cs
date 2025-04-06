@@ -61,6 +61,15 @@ namespace QuestShare.Server
                     }
 
                 });
+
+                endpoints.MapGet("/clients", async context =>
+                {
+                    await context.Response.WriteAsJsonAsync(new
+                    {
+                        ConnectedClients = ShareHub.ConnectedClients,
+                        ActiveSessions = await SessionManager.GetSessionCount(),
+                    });
+                });
             });
         }
     }

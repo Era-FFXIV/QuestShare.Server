@@ -8,6 +8,7 @@ namespace QuestShare.Server.Hubs
 {
     public partial class ShareHub : Hub
     {
+        public static int ConnectedClients = 0;
         public override Task OnConnectedAsync()
         {
             Log.Information($"Client connected: {Context.ConnectionId}");
@@ -19,6 +20,7 @@ namespace QuestShare.Server.Hubs
             Clients.Caller.SendAsync(nameof(AuthRequest), new AuthRequest.Response
             {
             });
+            ConnectedClients++;
             return base.OnConnectedAsync();
         }
         public override Task OnDisconnectedAsync(Exception? exception)
@@ -28,6 +30,7 @@ namespace QuestShare.Server.Hubs
             {
                 Log.Error(exception, "Exception occurred on disconnect.");
             }
+            ConnectedClients--;
             return base.OnDisconnectedAsync(exception);
         }
     }
