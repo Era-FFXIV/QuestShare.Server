@@ -21,7 +21,7 @@ namespace QuestShare.Server.Managers
         public static async Task<int> GetSessionCount()
         {
             using var context = new QuestShareContext();
-            var sessionCount = await context.Sessions.Where(s => s.LastUpdated > s.Created && s.LastUpdated >= DateTime.Now.AddHours(-1)).CountAsync();
+            var sessionCount = await context.Sessions.Where(s => s.LastUpdated > s.Created && s.LastUpdated >= DateTime.UtcNow.AddHours(-1)).CountAsync();
             return sessionCount;
         }
 

@@ -19,13 +19,16 @@ namespace QuestShare.Server.Hubs
                 Context.Abort();
                 return;
             }
-            var client = await ClientManager.GetClient(Context.ConnectionId);
             var error = Error.None;
-            if (request.Token == "" || request.Token != client!.Token) error = Error.InvalidToken;
+            var client = await ClientManager.GetClient(Context.ConnectionId);
             if (client == null) error = Error.Unauthorized;
+            else if (request.Token == "" || request.Token != client.Token) error = Error.InvalidToken;
             else if (request.Version != Common.Constants.Version) error = Error.InvalidVersion;
             var session = await SessionManager.GetSession(request.Session.ShareCode);
-            if (session == null) error = Error.InvalidSession;
+            if (error == Error.None)
+            {
+                if (session == null) error = Error.InvalidSession;
+            }
             if (error != Error.None)
             {
                 Log.Warning($"[UPDATE] Client {Context.ConnectionId} failed update with error {error}.");
