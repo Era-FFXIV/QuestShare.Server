@@ -1,7 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using QuestShare.Server.Models;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Security.Cryptography;
 
 namespace QuestShare.Server.Managers

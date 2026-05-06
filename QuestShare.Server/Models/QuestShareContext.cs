@@ -1,10 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using QuestShare.Common.API;
-using Serilog.Events;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics.CodeAnalysis;
 
 namespace QuestShare.Server.Models
 {

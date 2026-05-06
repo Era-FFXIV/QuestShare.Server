@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.SignalR;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using QuestShare.Common;
 using QuestShare.Server.Managers;
 

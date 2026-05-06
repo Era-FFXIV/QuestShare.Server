@@ -2,10 +2,7 @@ global using QuestShare.Common.API;
 global using Serilog;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.AspNetCore.Server.Kestrel.Https;
-using Microsoft.EntityFrameworkCore;
 using QuestShare.Common;
-using QuestShare.Server.Models;
-using System.Diagnostics;
 using System.Net;
 
 namespace QuestShare.Server

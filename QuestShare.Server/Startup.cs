@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Http.Connections;
-using Microsoft.AspNetCore.SignalR;
 using QuestShare.Common;
 using QuestShare.Server.Hubs;
 using QuestShare.Server.Managers;
